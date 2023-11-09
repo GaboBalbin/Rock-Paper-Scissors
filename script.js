@@ -1,3 +1,11 @@
+// Honestly, just use another if else statement block to know who won
+// For the many if stataments, combine all the winning plays into one if statement. Use || and return who won
+// Same for the losing plays
+
+
+
+
+
 function getComputerChoice(){
     moves = ['rock', 'paper', 'scissors'];
     randomNumber = Math.floor(Math.random() * 3);
