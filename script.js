@@ -4,6 +4,39 @@
 
 
 
+let playerSelection;
+const ROCK = document.querySelector(".rock");
+const PAPER = document.querySelector(".paper");
+const SCISSORS = document.querySelector(".scissors");
+
+const RESULTS = document.querySelector(".results");
+
+let win = 0;
+let lose = 0;
+let tie = 0;
+let out = "";
+
+
+function game(){
+    ROCK.addEventListener('click', () => {
+        playerSelection = ROCK.getAttribute('data-move');
+        const computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection)
+    })
+    PAPER.addEventListener('click', () => {
+        playerSelection = PAPER.getAttribute('data-move');
+        const computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection)
+    })
+    SCISSORS.addEventListener('click', () => {
+        playerSelection = SCISSORS.getAttribute('data-move');
+        const computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection)
+    })
+}
+
+game();
+
 
 
 function getComputerChoice(){
@@ -12,79 +45,57 @@ function getComputerChoice(){
     return moves[randomNumber];
 
 }
-let win = 0;
-let lose = 0;
-let tie = 0;
+
 
 function playRound(playerSelection, computerSelection) {
-    console.log(`Computer: ${computerSelection}`);
-    console.log(`User: ${playerSelection}`);
+    if (playerSelection === 'rock' && computerSelection === 'scissors' || 
+        playerSelection === 'paper' && computerSelection === 'rock' || 
+        playerSelection === 'scissors' && computerSelection === 'paper'){
+            out = `You win! ${playerSelection} beats ${computerSelection}`
+            win += 1;
+        }
+    else if (playerSelection === 'rock' && computerSelection === 'paper' || 
+            playerSelection === 'paper' && computerSelection === 'scissors' || 
+            playerSelection === 'scissors' && computerSelection === 'rock'){
+                out = `You lose! ${computerSelection} beats ${playerSelection}`
+                lose += 1;
+            }
+    else{
+        out = "Tie Bitch"
+        tie += 1;
+    }
+    console.log(`Win ${win}`);
+    console.log(`Lose ${lose}`);
+    console.log(`Tie ${tie}`)
+    RESULTS.textContent = out;
+
+    if (win === 5){
+        console.log('Player Won');
+        alert('You Won');
+        win = 0;
+        lose = 0;
+        tie = 0;
+    }
+    else if (lose === 5){
+        console.log('Computer Won');
+        alert('Computer Won');
+        win = 0;
+        lose = 0;
+        tie = 0;
+    }
     
-
-    if (computerSelection === 'rock'){
-        if (playerSelection === 'paper'){
-            win += 1;
-            return 'You win! Paper beats Rock'
-        }
-        else if (playerSelection === 'scissors'){
-            lose += 1;
-            return 'You lose! Rock beats Scissors'
-        }
-        else if (playerSelection === 'rock'){
-            tie += 1;
-            return 'Tie'
-        }
-    }
-    if (computerSelection === 'paper'){
-        if (playerSelection === 'scissors'){
-            win += 1;
-            return 'You Win! Scissors beats Paper'
-        }
-        else if (playerSelection === 'rock'){
-            lose += 1;
-            return 'You Lose! Paper beats Rock'
-        }
-        else if (playerSelection === 'paper'){
-            tie += 1;
-            return 'Tie'
-        }
-    }
-    if (computerSelection === 'scissors'){
-        if (playerSelection === 'rock'){
-            win += 1;
-            return 'You Win! Rock beats Scissors'
-        }
-        else if (playerSelection === 'paper'){
-            lose += 1;
-            return 'You Lose! Scissors beats paper'
-        }
-        else if (playerSelection === 'scissors'){
-            tie += 1;
-            return 'Tie'
-        }
-    }
-
-
   }
    
 
 
 
+// Everytime a move was done, game() is done
+// DOM
 
-function game(){
-    for (let i = 0; i < 5; i++){
-        const playerSelection = prompt('Choose: Rock Paper Scissors').toLowerCase();
-        const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection))
-        console.log(`Win ${win}`)
-        console.log(`Lose: ${lose}`)
-        console.log(`Tie: ${tie}`)
-    }
-        
-}
+//PlayerSelection is initialize inside a function and a button changes the value of it
 
 
-game()
+
 
 
 
